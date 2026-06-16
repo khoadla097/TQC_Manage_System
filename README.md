@@ -70,3 +70,62 @@ Giao diện hệ thống hỗ trợ khả năng hoạt động độc lập (off
 1. Bạn có thể mở trực tiếp file `source/Index.html` bằng trình duyệt trên máy tính cá nhân.
 2. Truy cập vào mục **Cài đặt**, dán **URL Web App** (lấy được ở Bước 4) vào ô cấu hình URL API và bấm **Lưu cấu hình**.
 3. Hệ thống local sẽ giao tiếp với Google Sheets của bạn qua HTTP requests (`fetch`), cho phép bạn kiểm thử giao diện mà không cần deploy lại liên tục trên Google Apps Script.
+
+---
+
+## 🔄 Tự động đồng bộ mã nguồn (Google Clasp)
+
+Để không phải copy-paste thủ công mỗi khi sửa code, bạn có thể sử dụng **Clasp (Command Line Apps Script Projects)** - công cụ dòng lệnh chính thức từ Google. Nó giúp bạn kéo/đẩy (`clasp pull` / `clasp push`) mã nguồn giữa máy tính và dự án Apps Script trực tiếp từ terminal.
+
+### Bước 1: Kích hoạt Google Apps Script API
+1. Truy cập vào trang cài đặt của [Google Apps Script User Settings](https://script.google.com/home/settings).
+2. Chuyển trạng thái **Google Apps Script API** sang **Bật (ON)**.
+
+### Bước 2: Cài đặt Clasp trên máy tính
+Mở Terminal/PowerShell và chạy lệnh cài đặt toàn cục (yêu cầu máy tính đã cài đặt [Node.js](https://nodejs.org/)):
+```bash
+npm install -g @google/clasp
+```
+
+### Bước 3: Đăng nhập tài khoản Google
+Chạy lệnh đăng nhập và xác thực tài khoản Google của bạn trên trình duyệt:
+```bash
+clasp login
+```
+
+### Bước 4: Liên kết thư mục dự án cục bộ với Google Apps Script
+1. Truy cập dự án Apps Script của bạn trên trình duyệt, vào phần **Cài đặt dự án (Project Settings)** (biểu tượng bánh răng bên trái) và sao chép **ID dự án (Script ID)**.
+2. Tại thư mục gốc `TQC_Manage_System/` trên máy tính của bạn, tạo một file cấu hình tên là `.clasp.json` với nội dung sau:
+   ```json
+   {
+     "scriptId": "MÃ_SCRIPT_ID_CỦA_BẠN",
+     "rootDir": "source"
+   }
+   ```
+3. Tạo thêm file cấu hình runtime của Apps Script là `source/appsscript.json` với nội dung mặc định như sau:
+   ```json
+   {
+     "timeZone": "Asia/Ho_Chi_Minh",
+     "dependencies": {
+     },
+     "exceptionLogging": "STACKDRIVER",
+     "runtimeVersion": "V8"
+   }
+   ```
+
+### Bước 5: Sử dụng Clasp để đồng bộ
+Giờ đây bạn có thể mở terminal tại thư mục dự án và sử dụng các lệnh sau:
+- **Đẩy code lên Apps Script (Push)**:
+  ```bash
+  clasp push
+  ```
+- **Tự động đẩy code ngay khi lưu file (Watch Mode)**:
+  Lệnh này sẽ giám sát thư mục `source/` và tự động cập nhật lên Apps Script mỗi khi bạn nhấn Lưu (`Ctrl + S`):
+  ```bash
+  clasp push --watch
+  ```
+- **Tải code từ Apps Script về máy (Pull)**:
+  ```bash
+  clasp pull
+  ```
+
