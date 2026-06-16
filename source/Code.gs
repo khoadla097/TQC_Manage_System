@@ -68,6 +68,21 @@ function initDatabase(ss) {
         .setFontWeight('bold')
         .setBackground('#1e3a5f')
         .setFontColor('#ffffff');
+    } else {
+      // Schema Migration: Đảm bảo toàn bộ các cột định nghĩa trong SHEET_HEADERS đều tồn tại trên Sheet
+      let existingHeaders = [];
+      if (sh.getLastColumn() > 0) {
+        existingHeaders = sh.getRange(1, 1, 1, sh.getLastColumn()).getValues()[0].map(h => String(h).trim());
+      }
+      const missingHeaders = headers.filter(h => !existingHeaders.includes(h));
+      if (missingHeaders.length > 0) {
+        const nextCol = existingHeaders.length + 1;
+        sh.getRange(1, nextCol, 1, missingHeaders.length)
+          .setValues([missingHeaders])
+          .setFontWeight('bold')
+          .setBackground('#1e3a5f')
+          .setFontColor('#ffffff');
+      }
     }
   }
 

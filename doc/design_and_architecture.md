@@ -78,7 +78,7 @@ Cung cấp các API Endpoint và điều hướng nghiệp vụ:
 - **`doPost(e)`**: Nhận chuỗi JSON gửi lên, phân tích và gọi router xử lý.
 - **`apiHandler(params)`**: Điểm kết nối bảo mật cho luồng gọi trực tiếp `google.script.run` từ trình duyệt.
 - **`route(p)`**: Bộ định tuyến switch-case điều khiển các tác vụ:
-  - `init`: Tạo các sheet cần thiết và ghi cấu hình mặc định (khách hàng, sản phẩm).
+  - `init`: Thực hiện khởi tạo cơ sở dữ liệu. Nếu các bảng dữ liệu chưa tồn tại, hệ thống tự động tạo mới và nạp dữ liệu cấu hình mặc định. Nếu bảng đã tồn tại, hệ thống sẽ tiến hành **Schema Migration** (tự động đối chiếu và tự sửa tiêu đề, bổ sung cột mới định nghĩa từ SHEET_HEADERS ở cuối dòng đầu tiên) giúp hệ thống tương thích tốt khi nâng cấp tính năng.
   - `read`: Đọc dữ liệu từ sheet và chuyển đổi dòng dữ liệu thành mảng đối tượng JSON.
   - `create`: Thêm dòng mới vào sheet tương ứng.
   - `update`: Tìm dòng dựa trên ID và ghi đè giá trị mới.

@@ -3468,7 +3468,7 @@
         function previewDocModal() {
             // Open full-screen preview in a new window
             const html = `\x3C!DOCTYPE html\x3E\x3Chtml\x3E\x3Chead\x3E\x3Cmeta charset="utf-8"\x3E
-    \x3Ctitle\x3E\${DOC_LIST[State.activeDoc].name}\x3C/title\x3E
+    \x3Ctitle\x3E${DOC_LIST[State.activeDoc].name}\x3C/title\x3E
     \x3Clink href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;700&display=swap" rel="stylesheet"\x3E
     \x3Cstyle\x3E
       body{margin:0;padding:20px;background:#e2e8f0;font-family:'Times New Roman', Times, serif;}
@@ -3487,7 +3487,7 @@
     \x3Cdiv style="text-align:center;margin-bottom:12px;"\x3E
       \x3Cbutton onclick="window.print()" style="padding:8px 20px;background:#2563eb;color:white;border:none;border-radius:6px;cursor:pointer;font-size:14px;"\x3E🖨️ In tài liệu\x3C/button\x3E
     \x3C/div\x3E
-    \${renderCurrentDoc()}
+    ${renderCurrentDoc()}
     \x3C/body\x3E\x3C/html\x3E`;
             const w = window.open('', '_blank');
             w.document.write(html);
