@@ -2032,11 +2032,11 @@
       </div>
 
       <div style="font-style:italic; margin-bottom:12px; text-align:justify; text-indent: -12px; padding-left: 12px;">
-        - Căn cứ vào Hợp đồng mua nguyên tắc số ${esc(form.soHopDong || '....')} giữa ${esc(customer.tenCongTy || '')} và ${esc(company.tenCongTy || '')} về việc cung cấp vật liệu xây dựng phục vụ thi công công trình.
+        - Căn cứ vào Hợp đồng mua nguyên tắc số ${esc(form.hdNguyenTacSo || form.soHopDong || '....')} ${form.ngayKyHD ? 'ký ngày ' + formatDate(form.ngayKyHD) : ''} giữa ${esc(customer.tenCongTy || '')} và ${esc(company.tenCongTy || '')} về việc cung cấp vật liệu xây dựng phục vụ thi công công trình.
       </div>
       
       <div style="font-style:italic; margin-bottom:20px;">
-        &nbsp;&nbsp;Căn cứ vào hóa đơn số &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ký hiệu &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ký ngày
+        &nbsp;&nbsp;Căn cứ vào hóa đơn số ${esc(form.hoaDonSo || '....................')} ký hiệu ${esc(form.kyHieuHoaDon || '....................')} ${form.ngayKyHoaDon ? 'ký ngày ' + formatDate(form.ngayKyHoaDon) : 'ký ngày ....................'}
       </div>
 
       <div style="margin-bottom:20px;">
@@ -2112,7 +2112,7 @@
       </div>
 
       <div style="font-style:italic; margin-bottom:8px; text-align:justify;">
-        - Căn cứ vào Hợp đồng mua nguyên tắc số ${esc(form.soHopDong || '....')} giữa ${esc(customer.tenCongTy || '')} và ${esc(company.tenCongTy || '')} về việc cung cấp vật liệu xây dựng phục vụ thi công công trình.
+        - Căn cứ vào Hợp đồng mua nguyên tắc số ${esc(form.hdNguyenTacSo || form.soHopDong || '....')} ${form.ngayKyHD ? 'ký ngày ' + formatDate(form.ngayKyHD) : ''} giữa ${esc(customer.tenCongTy || '')} và ${esc(company.tenCongTy || '')} về việc cung cấp vật liệu xây dựng phục vụ thi công công trình.
       </div>
       <div style="font-style:italic; margin-bottom:12px;">
         - Căn cứ vào Biên bản đối chiếu khối lượng.
@@ -2424,7 +2424,7 @@
       </div>
 
       <div style="font-style:italic; margin-bottom:8px; text-align:justify; line-height: 1.4;">
-        - Căn cứ vào Hợp đồng mua nguyên tắc số ${esc(form.soHopDong || '....')} giữa ${esc(customer.tenCongTy || '')} và ${esc(company.tenCongTy || '')} về việc cung cấp vật liệu xây dựng phục vụ thi công công trình.
+        - Căn cứ vào Hợp đồng mua nguyên tắc số ${esc(form.hdNguyenTacSo || form.soHopDong || '....')} ${form.ngayKyHD ? 'ký ngày ' + formatDate(form.ngayKyHD) : ''} giữa ${esc(customer.tenCongTy || '')} và ${esc(company.tenCongTy || '')} về việc cung cấp vật liệu xây dựng phục vụ thi công công trình.
       </div>
       <div style="font-style:italic; margin-bottom:12px;">
         - Căn cứ vào khối lượng vật liệu xây dựng đã nhập tại công trình: "${esc(form.congTrinh || '')}."
@@ -2903,6 +2903,20 @@
         <input class="form-control" id="kh-soBBGT" value="${esc(c.soBBGT || '')}" placeholder="..../BB"></div>
       <div class="form-group"><label class="form-label">Số BB Khối lượng</label>
         <input class="form-control" id="kh-soBBKL" value="${esc(c.soBBKL || '')}" placeholder="..../BB"></div>
+    </div>
+    <div class="form-grid">
+      <div class="form-group"><label class="form-label">Hợp đồng nguyên tắc số</label>
+        <input class="form-control" id="kh-hdNguyenTacSo" value="${esc(c.hdNguyenTacSo || '')}" placeholder="HĐNT số..."></div>
+      <div class="form-group"><label class="form-label">Ngày ký HĐ</label>
+        <input type="date" class="form-control" id="kh-ngayKyHD" value="${c.ngayKyHD || ''}"></div>
+    </div>
+    <div class="form-grid-3">
+      <div class="form-group"><label class="form-label">Hóa đơn số</label>
+        <input class="form-control" id="kh-hoaDonSo" value="${esc(c.hoaDonSo || '')}" placeholder="Hóa đơn số..."></div>
+      <div class="form-group"><label class="form-label">Ký hiệu hóa đơn</label>
+        <input class="form-control" id="kh-kyHieuHoaDon" value="${esc(c.kyHieuHoaDon || '')}" placeholder="Ký hiệu..."></div>
+      <div class="form-group"><label class="form-label">Ngày ký hóa đơn</label>
+        <input type="date" class="form-control" id="kh-ngayKyHoaDon" value="${c.ngayKyHoaDon || ''}"></div>
     </div>`;
 
             document.getElementById('modal-save').onclick = () => saveCustomer(id);
@@ -2921,6 +2935,11 @@
                 congTrinh: document.getElementById('kh-congTrinh').value.trim(),
                 soBBGT: document.getElementById('kh-soBBGT').value.trim(),
                 soBBKL: document.getElementById('kh-soBBKL').value.trim(),
+                hdNguyenTacSo: document.getElementById('kh-hdNguyenTacSo').value.trim(),
+                ngayKyHD: document.getElementById('kh-ngayKyHD').value,
+                hoaDonSo: document.getElementById('kh-hoaDonSo').value.trim(),
+                kyHieuHoaDon: document.getElementById('kh-kyHieuHoaDon').value.trim(),
+                ngayKyHoaDon: document.getElementById('kh-ngayKyHoaDon').value,
             };
             if (!data.tenCongTy) { showToast('Vui lòng nhập tên công ty', 'error'); return; }
 
@@ -3106,6 +3125,9 @@
             if (!data.ngay || !data.bienSoXe || !data.khachHangId || !data.sanPhamId) {
                 showToast('Vui lòng điền đầy đủ thông tin bắt buộc', 'error'); return;
             }
+            if (data.khoiLuong <= 0) {
+                showToast('Khối lượng/chuyến phải lớn hơn 0', 'error'); return;
+            }
 
             showLoading('Đang lưu...');
             try {
@@ -3279,31 +3301,22 @@
             <div style="background:#f0f9ff;border-radius:8px;padding:10px;margin-bottom:12px;font-size:0.82rem;">
               <div>Chuyến xe trong kỳ: <strong id="doc-so-chuyen">0</strong></div>
               <div style="margin-top:4px;">Tổng KL: <strong id="doc-tong-kl" style="color:#2563eb;font-size:1rem;">${fmtNum(tongKL)} m³</strong></div>
+              <div style="margin-top:4px; border-top:1px dashed #cbd5e1; padding-top:4px;">
+                Đơn giá VL: <strong id="lbl-donGiaDa">${fmtNum(sp.donGia || 0)} đ/m³</strong>
+              </div>
+              <div style="margin-top:2px;">
+                Đơn giá VC: <strong id="lbl-donGiaVC">${fmtNum(sp.donGiaVC || 0)} đ/m³</strong>
+              </div>
             </div>
             <div class="form-group"><label class="form-label">Ngày lập chứng từ</label>
               <input type="date" class="form-control" id="doc-ngayLap" value="${State.doc.ngayLap || todayISO()}" onchange="State.doc.ngayLap=this.value"></div>
             <div class="form-group"><label class="form-label">Công trình</label>
               <input class="form-control" id="doc-congTrinh" value="${esc(State.doc.congTrinh || '')}" placeholder="Tên công trình..." onchange="State.doc.congTrinh=this.value"></div>
             <div class="form-grid">
-              <div class="form-group"><label class="form-label">Đơn giá VL (đ/m³)</label>
-                <input type="number" class="form-control" id="doc-donGiaDa" value="${State.doc.donGiaDa || sp.donGia || ''}" placeholder="355000" onchange="State.doc.donGiaDa=parseFloat(this.value)||0"></div>
-              <div class="form-group"><label class="form-label">Đơn giá VC (đ/m³)</label>
-                <input type="number" class="form-control" id="doc-donGiaVC" value="${State.doc.donGiaVC || sp.donGiaVC || ''}" placeholder="115000" onchange="State.doc.donGiaVC=parseFloat(this.value)||0"></div>
-            </div>
-            <div class="form-grid">
               <div class="form-group"><label class="form-label">Dư nợ đầu kỳ (đ)</label>
                 <input type="number" class="form-control" id="doc-duNoDauKy" value="${State.doc.duNoDauKy || 0}" onchange="State.doc.duNoDauKy=parseFloat(this.value)||0"></div>
               <div class="form-group"><label class="form-label">Đã thanh toán (đ)</label>
                 <input type="number" class="form-control" id="doc-daTra" value="${State.doc.daTra || 0}" onchange="State.doc.daTra=parseFloat(this.value)||0"></div>
-            </div>
-            <div class="divider"></div>
-            <div class="form-group"><label class="form-label">Số HĐ / Số phiếu DNTT</label>
-              <input class="form-control" id="doc-soHopDong" value="${esc(State.doc.soHopDong || '')}" placeholder="..../HĐ" onchange="State.doc.soHopDong=this.value"></div>
-            <div class="form-grid">
-              <div class="form-group"><label class="form-label">Số BB Giá trị</label>
-                <input class="form-control" id="doc-soBBGT" value="${esc(State.doc.soBBGT || '')}" placeholder="..../BB" onchange="State.doc.soBBGT=this.value"></div>
-              <div class="form-group"><label class="form-label">Số BB Khối lượng</label>
-                <input class="form-control" id="doc-soBBKL" value="${esc(State.doc.soBBKL || '')}" placeholder="..../BB" onchange="State.doc.soBBKL=this.value"></div>
             </div>
           </div>
         </div>
@@ -3339,27 +3352,29 @@
             State.doc.soHopDong = kh.soHopDong || '';
             State.doc.soBBGT = kh.soBBGT || '';
             State.doc.soBBKL = kh.soBBKL || '';
+            State.doc.hdNguyenTacSo = kh.hdNguyenTacSo || '';
+            State.doc.ngayKyHD = kh.ngayKyHD || '';
+            State.doc.hoaDonSo = kh.hoaDonSo || '';
+            State.doc.kyHieuHoaDon = kh.kyHieuHoaDon || '';
+            State.doc.ngayKyHoaDon = kh.ngayKyHoaDon || '';
             State.doc.congTrinh = kh.congTrinh || '';
 
             // Update inputs on screen
-            if (document.getElementById('doc-soHopDong')) document.getElementById('doc-soHopDong').value = State.doc.soHopDong;
-            if (document.getElementById('doc-soBBGT')) document.getElementById('doc-soBBGT').value = State.doc.soBBGT;
-            if (document.getElementById('doc-soBBKL')) document.getElementById('doc-soBBKL').value = State.doc.soBBKL;
             if (document.getElementById('doc-congTrinh')) document.getElementById('doc-congTrinh').value = State.doc.congTrinh;
 
             updateDocTotals();
         }
         function onDocSpChange() {
             State.doc.sanPhamId = document.getElementById('doc-sp').value;
-            const sp = State.products.find(p => p.id === State.doc.sanPhamId);
-            if (sp) {
-                State.doc.donGiaDa = sp.donGia;
-                State.doc.donGiaVC = sp.donGiaVC;
-                const dDa = document.getElementById('doc-donGiaDa');
-                const dVC = document.getElementById('doc-donGiaVC');
-                if (dDa) dDa.value = sp.donGia;
-                if (dVC) dVC.value = sp.donGiaVC;
-            }
+            const sp = State.products.find(p => p.id === State.doc.sanPhamId) || {};
+            State.doc.donGiaDa = sp.donGia || 0;
+            State.doc.donGiaVC = sp.donGiaVC || 0;
+            
+            const elDa = document.getElementById('lbl-donGiaDa');
+            const elVC = document.getElementById('lbl-donGiaVC');
+            if (elDa) elDa.textContent = fmtNum(sp.donGia || 0) + ' đ/m³';
+            if (elVC) elVC.textContent = fmtNum(sp.donGiaVC || 0) + ' đ/m³';
+
             updateDocTotals();
         }
 
@@ -3389,7 +3404,7 @@
             document.querySelectorAll('.doc-card').forEach((el, i) => el.classList.toggle('active', i === idx));
             const title = document.querySelector('.card-header .card-title');
             if (title) title.textContent = '📄 ' + DOC_LIST[idx].name;
-            refreshDocPreview();
+            setTimeout(refreshDocPreview, 0);
         }
 
         function getDocParams() {
@@ -3398,17 +3413,22 @@
 
             // Read live values from form
             const live = {
-                donGiaDa: parseFloat(document.getElementById('doc-donGiaDa')?.value) || State.doc.donGiaDa || sp.donGia || 0,
-                donGiaVC: parseFloat(document.getElementById('doc-donGiaVC')?.value) || State.doc.donGiaVC || sp.donGiaVC || 0,
+                donGiaDa: sp.donGia || 0,
+                donGiaVC: sp.donGiaVC || 0,
                 duNoDauKy: parseFloat(document.getElementById('doc-duNoDauKy')?.value) || State.doc.duNoDauKy || 0,
                 daTra: parseFloat(document.getElementById('doc-daTra')?.value) || State.doc.daTra || 0,
                 tongKL: State.doc.tongKL || 0,
-                soHopDong: document.getElementById('doc-soHopDong')?.value || State.doc.soHopDong || '',
-                soBBGT: document.getElementById('doc-soBBGT')?.value || State.doc.soBBGT || '',
-                soBBKL: document.getElementById('doc-soBBKL')?.value || State.doc.soBBKL || '',
+                soHopDong: kh.soHopDong || '',
+                soBBGT: kh.soBBGT || '',
+                soBBKL: kh.soBBKL || '',
+                hdNguyenTacSo: kh.hdNguyenTacSo || '',
+                ngayKyHD: kh.ngayKyHD || '',
+                hoaDonSo: kh.hoaDonSo || '',
+                kyHieuHoaDon: kh.kyHieuHoaDon || '',
+                ngayKyHoaDon: kh.ngayKyHoaDon || '',
                 soDDH: State.doc.soDDH || '',
-                soPhieu: document.getElementById('doc-soHopDong')?.value || '',
-                congTrinh: document.getElementById('doc-congTrinh')?.value || State.doc.congTrinh || '',
+                soPhieu: kh.soHopDong || '',
+                congTrinh: document.getElementById('doc-congTrinh')?.value || State.doc.congTrinh || kh.congTrinh || '',
                 ngayLap: document.getElementById('doc-ngayLap')?.value || State.doc.ngayLap || todayISO(),
             };
 
@@ -3424,16 +3444,16 @@
         }
 
         function renderCurrentDoc() {
-            const params = getDocParams();
-            const renderers = [
-                () => Templates.renderDNTT(params),
-                () => Templates.renderGT(params),
-                () => Templates.renderKL(params),
-                () => Templates.renderDDH(params),
-                () => Templates.renderDC(params),
-                () => Templates.renderDa375(params),
-            ];
             try {
+                const params = getDocParams();
+                const renderers = [
+                    () => Templates.renderDNTT(params),
+                    () => Templates.renderGT(params),
+                    () => Templates.renderKL(params),
+                    () => Templates.renderDDH(params),
+                    () => Templates.renderDC(params),
+                    () => Templates.renderDa375(params),
+                ];
                 return renderers[State.activeDoc]();
             } catch (e) {
                 return `<div style="padding:20px;color:red;">Lỗi render: ${e.message}</div>`;
@@ -3626,8 +3646,8 @@
                     rows.push([]);
                     rows.push(['', 'Kính gửi:', customer.tenCongTy || '']);
                     rows.push([]);
-                    rows.push([`- Căn cứ vào Hợp đồng mua nguyên tắc số ${form.soHopDong || '....'} giữa ${customer.tenCongTy || ''} và ${company.tenCongTy || ''} về việc cung cấp vật liệu xây dựng phục vụ thi công công trình.`]);
-                    rows.push(['  Căn cứ vào hóa đơn số      ký hiệu        ký ngày']);
+                    rows.push([`- Căn cứ vào Hợp đồng mua nguyên tắc số ${form.hdNguyenTacSo || form.soHopDong || '....'} ${form.ngayKyHD ? 'ký ngày ' + formatDate(form.ngayKyHD) : ''} giữa ${customer.tenCongTy || ''} và ${company.tenCongTy || ''} về việc cung cấp vật liệu xây dựng phục vụ thi công công trình.`]);
+                    rows.push([`  Căn cứ vào hóa đơn số ${form.hoaDonSo || '............'} ký hiệu ${form.kyHieuHoaDon || '............'} ${form.ngayKyHoaDon ? 'ký ngày ' + formatDate(form.ngayKyHoaDon) : 'ký ngày ............'}`]);
                     rows.push([]);
                     rows.push([`${company.tenCongTy || ''} đề nghị ${customer.tenCongTy || ''}`]);
                     rows.push(['Dư nợ đầu kỳ', '', '', '', '', duNoDauKy, 'đồng']);
@@ -3655,7 +3675,7 @@
                     rows.push([]);
                     rows.push(['', '', 'BIÊN BẢN XÁC NHẬN GIÁ TRỊ']);
                     rows.push([]);
-                    rows.push([`- Căn cứ vào Hợp đồng mua nguyên tắc số ${form.soHopDong || '....'} giữa ${customer.tenCongTy || ''} và ${company.tenCongTy || ''} về việc cung cấp vật liệu xây dựng phục vụ thi công công trình.`]);
+                    rows.push([`- Căn cứ vào Hợp đồng mua nguyên tắc số ${form.hdNguyenTacSo || form.soHopDong || '....'} ${form.ngayKyHD ? 'ký ngày ' + formatDate(form.ngayKyHD) : ''} giữa ${customer.tenCongTy || ''} và ${company.tenCongTy || ''} về việc cung cấp vật liệu xây dựng phục vụ thi công công trình.`]);
                     rows.push(['- Căn cứ vào Biên bản đối chiếu khối lượng.']);
                     rows.push([`Hôm nay, ${formatDateLong(form.ngayLap || todayISO())}, chúng tôi gồm :`]);
                     rows.push([`BÊN A (BÊN MUA): ${customer.tenCongTy || ''}`]);
@@ -3748,7 +3768,7 @@
                     rows.push(['', '', 'BIÊN BẢN ĐỐI CHIẾU CÔNG NỢ']);
                     rows.push(['', '', `Từ ngày ${formatDate(dateFrom)} đến ngày ${formatDate(dateTo)}`]);
                     rows.push([]);
-                    rows.push([`- Căn cứ vào Hợp đồng mua nguyên tắc số ${form.soHopDong || '....'} giữa ${customer.tenCongTy || ''} và ${company.tenCongTy || ''} về việc cung cấp vật liệu xây dựng phục vụ thi công công trình.`]);
+                    rows.push([`- Căn cứ vào Hợp đồng mua nguyên tắc số ${form.hdNguyenTacSo || form.soHopDong || '....'} ${form.ngayKyHD ? 'ký ngày ' + formatDate(form.ngayKyHD) : ''} giữa ${customer.tenCongTy || ''} và ${company.tenCongTy || ''} về việc cung cấp vật liệu xây dựng phục vụ thi công công trình.`]);
                     rows.push([`- Căn cứ vào khối lượng vật liệu xây dựng đã nhập tại công trình: "${form.congTrinh || ''}."`]);
                     rows.push([`Hôm nay, ngày ${currentDay(form.ngayLap)} tháng ${currentMonth(form.ngayLap)} năm ${currentYear(form.ngayLap)}: Chúng tôi gồm:`]);
                     rows.push([`BÊN A (BÊN MUA): ${customer.tenCongTy || ''}`]);

@@ -7,7 +7,7 @@
 
 const SHEET_HEADERS = {
   'CauHinh':   ['key', 'value'],
-  'KhachHang': ['id','tenCongTy','daiDien','chucVu','diaChi','maSoThue'],
+  'KhachHang': ['id','tenCongTy','daiDien','chucVu','diaChi','maSoThue','soHopDong','congTrinh','soBBGT','soBBKL','hdNguyenTacSo','ngayKyHD','hoaDonSo','kyHieuHoaDon','ngayKyHoaDon'],
   'SanPham':   ['id','ten','donVi','donGia','donGiaVC'],
   'VanChuyen': ['id','ngay','bienSoXe','soChuyenCho','khoiLuong','khachHangId','sanPhamId','ghiChu']
 };

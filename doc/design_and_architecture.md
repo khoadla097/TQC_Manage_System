@@ -105,6 +105,15 @@ Cơ sở dữ liệu lưu trong Google Sheets gồm 4 bảng dữ liệu chính:
 | `chucVu` | String | Chức vụ người đại diện |
 | `diaChi` | String | Địa chỉ giao hàng/hóa đơn |
 | `maSoThue` | String | Mã số thuế doanh nghiệp |
+| `soHopDong` | String | Số hợp đồng / Số phiếu DNTT |
+| `congTrinh` | String | Tên công trình của khách hàng |
+| `soBBGT` | String | Số biên bản xác nhận giá trị |
+| `soBBKL` | String | Số biên bản xác nhận khối lượng |
+| `hdNguyenTacSo` | String | Hợp đồng nguyên tắc số |
+| `ngayKyHD` | Date (yyyy-MM-dd) | Ngày ký hợp đồng nguyên tắc |
+| `hoaDonSo` | String | Hóa đơn số |
+| `kyHieuHoaDon` | String | Ký hiệu hóa đơn |
+| `ngayKyHoaDon` | Date (yyyy-MM-dd) | Ngày ký hóa đơn |
 
 ### Bảng 3: `SanPham` (Danh mục Sản phẩm)
 | Cột | Kiểu dữ liệu | Mô tả |
