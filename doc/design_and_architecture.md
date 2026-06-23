@@ -31,6 +31,8 @@ graph TD
 1. **Presentation Layer (Lớp hiển thị - Frontend SPA)**:
    - Giao diện người dùng chạy hoàn toàn dưới dạng Single Page Application (SPA) trong một file `Index.html` duy nhất.
    - Tự động thay đổi trạng thái (hiển thị/ẩn các Page ảo) qua Javascript mà không cần tải lại trang.
+   - Sidebar được phân nhóm trực quan gồm hai phần: **Hoạt động hằng ngày** (Vận chuyển, Tạo giấy tờ) và **Cấu hình hệ thống** (Khách hàng, Sản phẩm, Danh sách xe, Thông tin công ty, Cài đặt hệ thống).
+   - Bao gồm các trang quản lý: Vận chuyển, Tạo giấy tờ, Khách hàng, Sản phẩm, Danh sách xe, Thông tin công ty, Cài đặt hệ thống.
 2. **Business Logic & Persistence Layer (Lớp xử lý & Lưu trữ - Backend)**:
    - Google Apps Script đóng vai trò là một API server không trạng thái (stateless API).
    - Google Sheets đóng vai trò là Cơ sở dữ liệu quan hệ đơn giản lưu trữ thông tin thực tế.
@@ -59,7 +61,10 @@ Các khối script được tổ chức ảo thành 4 file JS mô đun:
 1. **`js/utils.js` (Hàm tiện ích)**:
    - `genId()`: Sinh ID ngẫu nhiên cho bản ghi mới dựa trên timestamp và chuỗi ngẫu nhiên.
    - Định dạng ngày tháng (`formatDate`), tiền tệ (`fmtCurrency`) theo chuẩn Việt Nam.
-   - `docSoTien()`: Logic chuyển đổi từ số tiền (ví dụ: `355000`) sang chữ Tiếng Việt (ví dụ: *Ba trăm năm mươi lăm nghìn đồng*) để điền vào phiếu xuất kho A4.
+   - `docSoTien()`: Logic chuyển đổi từ số tiền sang chữ Tiếng Việt để điền vào các phiếu xuất kho A4.
+   - `getTransportName(prodName)`: Tiện ích chuyển đổi tên sản phẩm sang tên dòng vận chuyển tương ứng một cách tự động (ví dụ: "Đá mi" -> "Vận chuyển đá mi").
+   - `debounce(func, wait)`: Giới hạn tần suất kích hoạt hàm xử lý sự kiện để tối ưu hiệu năng.
+   - `makeSearchableDropdown(select)`: Hàm chuyển đổi thẻ select mặc định của trình duyệt thành ô chọn có hỗ trợ tìm kiếm mờ (fuzzy search) cho Khách hàng, Sản phẩm và Biển số xe.
 2. **`js/db.js` (Lớp CSDL & Giao tiếp API)**:
    - Có cơ chế **Dual-Mode Communication**:
      - *Online Mode*: Nếu phát hiện đối tượng toàn cục `google.script.run`, hệ thống sẽ gọi trực tiếp các hàm API trong `Code.gs` (tốc độ nhanh hơn, chạy trực tiếp trong Apps Script container).
@@ -67,6 +72,7 @@ Các khối script được tổ chức ảo thành 4 file JS mô đun:
    - Hỗ trợ **Local Cache** (`cache`): Khi tải trang, hệ thống gọi `loadAll()` để nạp trước toàn bộ danh sách Khách hàng, Sản phẩm, Vận chuyển và Cấu hình vào bộ nhớ đệm giúp tìm kiếm/truy xuất tức thì mà không cần truy vấn Sheet liên tục.
 3. **`js/templates.js` (Mẫu in hóa đơn A4)**:
    - Chứa mã nguồn HTML/CSS dạng chuỗi định dạng để render xem trước biên nhận (phiếu giao hàng) khổ giấy A4 chuẩn hóa.
+   - Thiết lập các trường hiển thị động theo thực tế như Địa chỉ công trình trong mẫu Khối lượng (KL) và mẫu Đơn hàng (DDH) thay vì dùng thông tin trụ sở hay giá trị cứng.
 4. **`js/app.js` (Quản lý ứng dụng)**:
    - Xử lý các sự kiện click, đóng mở modal, lắng nghe submit form để gọi các hàm CRUD trong `DB`.
    - Tìm kiếm và bộ lọc thời gian theo khách hàng, biển số xe.
@@ -107,8 +113,7 @@ Cơ sở dữ liệu lưu trong Google Sheets gồm 4 bảng dữ liệu chính:
 | `maSoThue` | String | Mã số thuế doanh nghiệp |
 | `soHopDong` | String | Số hợp đồng / Số phiếu DNTT |
 | `congTrinh` | String | Tên công trình của khách hàng |
-| `soBBGT` | String | Số biên bản xác nhận giá trị |
-| `soBBKL` | String | Số biên bản xác nhận khối lượng |
+| `diaChiCongTrinh` | String | Địa chỉ công trình của khách hàng |
 | `hdNguyenTacSo` | String | Hợp đồng nguyên tắc số |
 | `ngayKyHD` | Date (yyyy-MM-dd) | Ngày ký hợp đồng nguyên tắc |
 | `hoaDonSo` | String | Hóa đơn số |
