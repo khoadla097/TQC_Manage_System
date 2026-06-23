@@ -4637,6 +4637,28 @@
                     { wch: 8 }   // G
                 ];
             }
+
+            // ── A4 Print Setup ──────────────────────────────────────────
+            // paperSize 9 = A4 (ISO 216). fitToPage + fitToWidth:1 scales all
+            // columns onto exactly 1 page wide; rows flow naturally onto more pages.
+            ws['!pageSetup'] = {
+                paperSize:   9,           // A4
+                orientation: 'portrait',
+                fitToPage:   true,
+                fitToWidth:  1,           // Fit all columns onto 1 page wide
+                fitToHeight: 0,           // Unlimited pages tall
+                scale:       100
+            };
+
+            // Margins in inches: left/right 0.7", top/bottom 0.75", header/footer 0.3"
+            ws['!margins'] = {
+                left:   0.7,
+                right:  0.7,
+                top:    0.75,
+                bottom: 0.75,
+                header: 0.3,
+                footer: 0.3
+            };
         }
 
         // ─── SETTINGS PAGE ───────────────────────────────────
