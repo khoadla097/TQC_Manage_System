@@ -2027,15 +2027,11 @@
           <div class="doc-sig-title">ĐẠI DIỆN BÊN MUA</div>
           <div style="font-style:italic;font-size:10pt;">(Ký, ghi rõ họ tên)</div>
           <div class="doc-sig-space"></div>
-          <div class="doc-bold">${esc(buyerRep || '')}</div>
-          <div style="font-size:10pt;">${esc(buyerTitle || '')}</div>
         </div>
         <div class="doc-sig">
           <div class="doc-sig-title">ĐẠI DIỆN BÊN BÁN</div>
-          <div style="font-style:italic;font-size:10pt;">(Ký, ghi rõ họ tên)</div>
+          <div style="font-style:italic;font-size:10pt;">(Ký, đóng dấu, ghi rõ họ tên)</div>
           <div class="doc-sig-space"></div>
-          <div class="doc-bold">${esc(sellerRep || '')}</div>
-          <div style="font-size:10pt;">${esc(sellerTitle || '')}</div>
         </div>
       </div>`;
             },
@@ -2128,7 +2124,7 @@
           <div style="font-weight:bold; text-transform:uppercase;">${esc(company.tenCongTy || '')}</div>
           <div style="font-weight:bold; margin-top:4px;">ĐẠI DIỆN BÊN BÁN</div>
           <div style="font-style:italic; font-size:10pt; font-weight:normal; margin-top:2px;">(Ký, đóng dấu, ghi rõ họ tên)</div>
-          <div style="margin-top:60px; font-weight:bold; text-transform:uppercase;">${esc(company.daiDien || '')}</div>
+          <div style="height:60px;"></div>
         </div>
       </div>
     </div>`;
@@ -2649,18 +2645,14 @@
       <div style="margin-top:8px;font-style:italic;font-size:10pt;text-align:right;">Hôm nay là ngày ${currentDay(form.ngayLap)} tháng ${currentMonth(form.ngayLap)} năm ${currentYear(form.ngayLap)}</div>
       <div class="doc-sig-row">
         <div class="doc-sig">
-          <div class="doc-sig-title" style="font-size:14pt; font-weight:bold;">${esc(customer.tenCongTy || 'BÊN MUA')}</div>
-          <div style="font-style:italic;font-size:10pt;">(Ký, đóng dấu)</div>
+          <div class="doc-sig-title" style="font-size:14pt; font-weight:bold;">ĐẠI DIỆN BÊN MUA</div>
+          <div style="font-style:italic;font-size:10pt;">(Ký, ghi rõ họ tên)</div>
           <div class="doc-sig-space"></div>
-          <div class="doc-bold">${esc(customer.daiDien || '')}</div>
-          <div style="font-size:10pt;">${esc(customer.chucVu || '')}</div>
         </div>
         <div class="doc-sig">
-          <div class="doc-sig-title" style="font-size:14pt; font-weight:bold;">${esc(company.tenCongTy || '')}</div>
-          <div style="font-style:italic;font-size:10pt;">(Ký, đóng dấu)</div>
+          <div class="doc-sig-title" style="font-size:14pt; font-weight:bold;">ĐẠI DIỆN BÊN BÁN</div>
+          <div style="font-style:italic;font-size:10pt;">(Ký, đóng dấu, ghi rõ họ tên)</div>
           <div class="doc-sig-space"></div>
-          <div class="doc-bold">${esc(company.daiDien || '')}</div>
-          <div style="font-size:10pt;">${esc(company.chucVu || 'Giám đốc')}</div>
         </div>
       </div>
     </div>`;
@@ -3771,13 +3763,12 @@
                 rows.push(['TỔNG CỘNG', '', '', '', '', totalCC, totalKLC, totalKL]);
                 rows.push([]);
                 rows.push([`Hôm nay là ngày ${currentDay(form.ngayLap)} tháng ${currentMonth(form.ngayLap)} năm ${currentYear(form.ngayLap)}`]);
-                rows.push([customer.tenCongTy || 'BÊN MUA', '', '', '', company.tenCongTy || 'BÊN BÁN']);
-                rows.push(['(Ký, đóng dấu)', '', '', '', '(Ký, đóng dấu)']);
+                rows.push(['ĐẠI DIỆN BÊN MUA', '', '', '', 'ĐẠI DIỆN BÊN BÁN']);
+                rows.push(['(Ký, ghi rõ họ tên)', '', '', '', '(Ký, đóng dấu, ghi rõ họ tên)']);
                 rows.push([]);
                 rows.push([]);
                 rows.push([]);
-                rows.push([customer.daiDien || '', '', '', '', company.daiDien || '']);
-                rows.push([customer.chucVu || '', '', '', '', company.chucVu || 'Giám đốc']);
+                rows.push([]);
             } else {
                 const soTienDA = (form.tongKL || 0) * (form.donGiaDa || 0);
                 const soTienVC = (form.tongKL || 0) * (form.donGiaVC || 0);
@@ -3825,7 +3816,7 @@
                     rows.push([]);
                     rows.push([]);
                     rows.push([]);
-                    rows.push(['', '', '', '', company.daiDien || '']);
+                    rows.push([]);
                 } else if (docKey === 'gt') {
                     rows.push([company.tenCongTy || '', '', '', '', 'CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM']);
                     rows.push(['', '', '', '', 'Độc lập - Tự do - Hạnh phúc']);
@@ -3850,12 +3841,11 @@
                     rows.push(['Biên bản được lập thành 04 bản, mỗi bên giữ 02 bản có giá trị pháp lý như nhau.']);
                     rows.push([]);
                     rows.push(['', 'ĐẠI DIỆN BÊN MUA', '', '', 'ĐẠI DIỆN BÊN BÁN']);
-                    rows.push(['', '(Ký ghi rõ họ tên)', '', '', '(Ký, đóng dấu, ghi rõ họ tên)']);
+                    rows.push(['', '(Ký, ghi rõ họ tên)', '', '', '(Ký, đóng dấu, ghi rõ họ tên)']);
                     rows.push([]);
                     rows.push([]);
                     rows.push([]);
-                    rows.push(['', customer.daiDien || '', '', '', company.daiDien || '']);
-                    rows.push(['', customer.chucVu || '', '', '', company.chucVu || 'Giám đốc']);
+                    rows.push([]);
                 } else if (docKey === 'kl') {
                     const compUpper = (company.tenCongTy || '').toUpperCase();
                     if (compUpper.includes("CÔNG TY TNHH TƯ VẤN VÀ XÂY DỰNG TQC")) {
@@ -3884,12 +3874,11 @@
                     rows.push(['Biên bản được lập thành 04 bản, mỗi bên giữ 02 bản có giá trị pháp lý như nhau.']);
                     rows.push([]);
                     rows.push(['', 'ĐẠI DIỆN BÊN MUA', '', 'ĐẠI DIỆN BÊN BÁN']);
-                    rows.push(['', '(Ký ghi rõ họ tên)', '', '(Ký, đóng dấu, ghi rõ họ tên)']);
+                    rows.push(['', '(Ký, ghi rõ họ tên)', '', '(Ký, đóng dấu, ghi rõ họ tên)']);
                     rows.push([]);
                     rows.push([]);
                     rows.push([]);
-                    rows.push(['', customer.daiDien || '', '', company.daiDien || '']);
-                    rows.push(['', customer.chucVu || '', '', company.chucVu || 'Giám đốc']);
+                    rows.push([]);
                 } else if (docKey === 'ddh') {
                     rows.push(['', 'CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM']);
                     rows.push(['', 'Độc lập - Tự do - Hạnh phúc']);
@@ -3921,12 +3910,11 @@
                     rows.push(['Trân trọng cảm ơn!']);
                     rows.push([]);
                     rows.push(['', 'ĐẠI DIỆN BÊN MUA', '', '', 'ĐẠI DIỆN BÊN BÁN']);
-                    rows.push(['', '(Ký ghi rõ họ tên)', '', '', '(Ký, đóng dấu, ghi rõ họ tên)']);
+                    rows.push(['', '(Ký, ghi rõ họ tên)', '', '', '(Ký, đóng dấu, ghi rõ họ tên)']);
                     rows.push([]);
                     rows.push([]);
                     rows.push([]);
-                    rows.push(['', customer.daiDien || '', '', '', company.daiDien || '']);
-                    rows.push(['', customer.chucVu || '', '', '', company.chucVu || 'Giám đốc']);
+                    rows.push([]);
                 } else if (docKey === 'dc') {
                     const compUpper = (company.tenCongTy || '').toUpperCase();
                     if (compUpper.includes("CÔNG TY TNHH TƯ VẤN VÀ XÂY DỰNG TQC")) {
@@ -3963,12 +3951,11 @@
                     rows.push(['Biên bản được lập thành 04 bản, mỗi bên giữ 02 bản để làm cơ sở hai bên thanh toán.']);
                     rows.push([]);
                     rows.push(['', 'ĐẠI DIỆN BÊN MUA', '', '', 'ĐẠI DIỆN BÊN BÁN']);
-                    rows.push(['', '(Ký ghi rõ họ tên)', '', '', '(Ký, đóng dấu, ghi rõ họ tên)']);
+                    rows.push(['', '(Ký, ghi rõ họ tên)', '', '', '(Ký, đóng dấu, ghi rõ họ tên)']);
                     rows.push([]);
                     rows.push([]);
                     rows.push([]);
-                    rows.push(['', customer.daiDien || '', '', '', company.daiDien || '']);
-                    rows.push(['', customer.chucVu || '', '', '', company.chucVu || 'Giám đốc']);
+                    rows.push([]);
                 }
             }
 
@@ -4208,11 +4195,11 @@
                 // Merge Coteccons and TQC signatures dynamically
                 ws['!merges'].push({ s: { r: sigStartRow, c: 0 }, e: { r: sigStartRow, c: 3 } });
                 ws['!merges'].push({ s: { r: sigStartRow, c: 4 }, e: { r: sigStartRow, c: 7 } });
-                ws['!merges'].push({ s: { r: maxRow, c: 0 }, e: { r: maxRow, c: 3 } });
-                ws['!merges'].push({ s: { r: maxRow, c: 4 }, e: { r: maxRow, c: 7 } });
+                ws['!merges'].push({ s: { r: sigStartRow + 1, c: 0 }, e: { r: sigStartRow + 1, c: 3 } });
+                ws['!merges'].push({ s: { r: sigStartRow + 1, c: 4 }, e: { r: sigStartRow + 1, c: 7 } });
             } else if ((docKey === 'gt' || docKey === 'kl' || docKey === 'ddh' || docKey === 'dc') && sigStartRow !== -1) {
                 const startSig = sigStartRow;
-                const endSig = maxRow;
+                const endSig = sigStartRow + 1; // Always merge the instruction row
 
                 let leftStart = 1, leftEnd = 2;
                 let rightStart = 4, rightEnd = lastColIdx;
@@ -4236,7 +4223,7 @@
                 ws['!merges'].push({ s: { r: endSig, c: leftStart }, e: { r: endSig, c: leftEnd } });
                 ws['!merges'].push({ s: { r: endSig, c: rightStart }, e: { r: endSig, c: rightEnd } });
             } else if (docKey === 'dntt' && sigStartRow !== -1) {
-                for (let r = sigStartRow; r <= maxRow; r++) {
+                for (let r = sigStartRow; r <= sigStartRow + 1; r++) { // Only merge heading and instruction row
                     const cellVal = String(ws[XLSX.utils.encode_cell({ r, c: 4 })]?.v || '').trim();
                     if (cellVal) {
                         ws['!merges'].push({ s: { r, c: 4 }, e: { r, c: lastColIdx } });
@@ -4432,8 +4419,8 @@
                     }
                 }
 
-                // Specially style company signature name titles in Bảng Kê (last row) to be Bold and size 14
-                if (docKey === 'da375' && addr.r >= maxRow - 1 && (addr.c === 0 || addr.c === 4)) {
+                // Specially style company signature headings in Bảng Kê to be Bold and size 13
+                if (docKey === 'da375' && addr.r === sigStartRow && (addr.c === 0 || addr.c === 4)) {
                     isBold = true;
                     fontSize = 13;
                 }
